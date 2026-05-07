@@ -57,7 +57,7 @@ router.get('/', async (_req: Request, res: Response) => {
   res.json(result);
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request<{ id: string }>, res: Response) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
@@ -78,7 +78,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   res.json(quiz);
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request<{ id: string }>, res: Response) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
