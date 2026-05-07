@@ -21,12 +21,12 @@ export default function QuizDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p className="text-gray-500">Loading...</p>;
+  if (loading) return <p className="text-text-muted">Loading...</p>;
   if (error) {
     return (
       <div className="text-center py-16">
-        <p className="text-red-500 mb-4">{error}</p>
-        <Link href="/quizzes" className="text-indigo-600 hover:underline text-sm">
+        <p className="text-danger mb-4">{error}</p>
+        <Link href="/quizzes" className="text-primary hover:underline text-sm">
           Back to quizzes
         </Link>
       </div>
@@ -36,12 +36,12 @@ export default function QuizDetailPage() {
 
   return (
     <div>
-      <Link href="/quizzes" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+      <Link href="/quizzes" className="text-sm text-primary hover:underline mb-6 inline-block">
         ← Back to quizzes
       </Link>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">{quiz.title}</h1>
-      <p className="text-sm text-gray-400 mb-8">
+      <h1 className="text-3xl font-bold text-text mb-2">{quiz.title}</h1>
+      <p className="text-sm text-text-muted mb-8">
         {quiz.questions.length} question{quiz.questions.length !== 1 ? 's' : ''}
       </p>
 

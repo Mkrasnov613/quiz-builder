@@ -10,6 +10,7 @@ export interface Question {
   id: number;
   text: string;
   type: QuestionType;
+  correctAnswer?: string | null;
   options: Option[];
 }
 
@@ -35,10 +36,16 @@ export interface CreateOptionDto {
 export interface CreateQuestionDto {
   text: string;
   type: QuestionType;
+  correctAnswer?: string;
   options?: CreateOptionDto[];
 }
 
 export interface CreateQuizDto {
   title: string;
   questions: CreateQuestionDto[];
+}
+
+export interface QuestionDraft extends CreateQuestionDto {
+  _id: number;
+  options: CreateOptionDto[];
 }

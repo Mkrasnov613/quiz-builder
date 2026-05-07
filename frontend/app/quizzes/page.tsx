@@ -32,27 +32,21 @@ export default function QuizzesPage() {
   };
 
   if (loading) {
-    return <p className="text-gray-500">Loading quizzes...</p>;
+    return <p className="text-text-muted">Loading quizzes...</p>;
   }
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">All Quizzes</h1>
-        <Link
-          href="/create"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
-        >
-          + Create Quiz
-        </Link>
+        <h1 className="text-2xl font-bold text-text">All Quizzes</h1>
       </div>
 
-      {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+      {error && <p className="text-danger mb-4 text-sm">{error}</p>}
 
       {quizzes.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-text-muted">
           <p className="text-lg mb-2">No quizzes yet.</p>
-          <Link href="/create" className="text-indigo-600 hover:underline text-sm">
+          <Link href="/create" className="text-primary hover:underline text-sm">
             Create your first quiz
           </Link>
         </div>
@@ -61,11 +55,11 @@ export default function QuizzesPage() {
           {quizzes.map((quiz) => (
             <li
               key={quiz.id}
-              className="bg-white border border-gray-200 rounded-lg px-5 py-4 flex items-center justify-between hover:shadow-sm transition-shadow"
+              className="bg-gradient-card border border-border-muted rounded-lg px-5 py-4 flex items-center justify-between hover:border-border transition-colors"
             >
               <Link href={`/quizzes/${quiz.id}`} className="flex-1 min-w-0">
-                <p className="font-medium text-gray-900 truncate">{quiz.title}</p>
-                <p className="text-sm text-gray-400 mt-0.5">
+                <p className="font-medium text-text truncate">{quiz.title}</p>
+                <p className="text-sm text-text-muted mt-0.5">
                   {quiz.questionCount} question{quiz.questionCount !== 1 ? 's' : ''}
                 </p>
               </Link>
@@ -74,7 +68,7 @@ export default function QuizzesPage() {
                 onClick={() => handleDelete(quiz.id)}
                 disabled={deleting === quiz.id}
                 aria-label={`Delete ${quiz.title}`}
-                className="ml-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors disabled:opacity-50"
+                className="ml-4 p-2 text-text-muted hover:text-danger hover:bg-danger/10 rounded-md transition-colors disabled:opacity-50"
               >
                 {deleting === quiz.id ? (
                   <span className="text-xs">...</span>

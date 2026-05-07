@@ -7,28 +7,39 @@ interface Props {
 
 export default function QuestionCard({ question, index }: Props) {
   return (
-    <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-      <p className="text-sm text-gray-400 font-medium mb-1">
+    <div className="border border-border-muted rounded-lg p-4 bg-gradient-card">
+      <p className="text-sm text-text-muted font-medium mb-1">
         Q{index + 1} &middot; {question.type}
       </p>
-      <p className="font-medium text-gray-800 mb-3">{question.text}</p>
+      <p className="font-medium text-text mb-3">{question.text}</p>
 
       {question.type === 'BOOLEAN' && (
         <div className="flex gap-4 text-sm">
-          <span className="flex items-center gap-1.5 text-gray-600">
-            <span className="w-4 h-4 rounded-full border border-gray-400 inline-block" />
-            True
-          </span>
-          <span className="flex items-center gap-1.5 text-gray-600">
-            <span className="w-4 h-4 rounded-full border border-gray-400 inline-block" />
-            False
-          </span>
+          {(['true', 'false'] as const).map((val) => {
+            const isCorrect = question.correctAnswer === val;
+            return (
+              <span
+                key={val}
+                className={`flex items-center gap-1.5 ${isCorrect ? 'text-success font-medium' : 'text-text-muted'}`}
+              >
+                <span
+                  className={`w-4 h-4 rounded-full border inline-block ${isCorrect ? 'bg-success border-success' : 'border-border'}`}
+                />
+                {val === 'true' ? 'True' : 'False'}
+              </span>
+            );
+          })}
         </div>
       )}
 
       {question.type === 'INPUT' && (
-        <div className="h-8 border-b border-gray-300 w-full max-w-xs text-sm text-gray-400 flex items-end pb-1">
-          Short text answer
+        <div className="flex border-b border-border w-full text-sm flex-col items-start pb-1 gap-1">
+          <p className="text-text-muted/50 text-xs">Answer:</p>
+          <p
+            className={`block break-all ${question.correctAnswer ? 'text-success' : 'text-text-muted/40 italic'}`}
+          >
+            {question.correctAnswer || 'not set'}
+          </p>
         </div>
       )}
 
@@ -37,14 +48,12 @@ export default function QuestionCard({ question, index }: Props) {
           {question.options.map((opt) => (
             <li key={opt.id} className="flex items-center gap-2 text-sm">
               <span
-                className={`w-4 h-4 rounded border flex-shrink-0 ${opt.isCorrect ? 'bg-green-500 border-green-500' : 'border-gray-400'}`}
+                className={`w-4 h-4 rounded border shrink-0 ${opt.isCorrect ? 'bg-success border-success' : 'border-border'}`}
               />
-              <span className={opt.isCorrect ? 'text-green-700 font-medium' : 'text-gray-600'}>
+              <span className={opt.isCorrect ? 'text-success font-medium' : 'text-text-muted'}>
                 {opt.label}
               </span>
-              {opt.isCorrect && (
-                <span className="text-xs text-green-600 ml-auto">correct</span>
-              )}
+              {opt.isCorrect && <span className="text-xs text-success ml-auto">correct</span>}
             </li>
           ))}
         </ul>

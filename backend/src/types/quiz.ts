@@ -8,6 +8,7 @@ export interface CreateOptionDto {
 export interface CreateQuestionDto {
   text: string;
   type: QuestionType;
+  correctAnswer?: string;
   options?: CreateOptionDto[];
 }
 

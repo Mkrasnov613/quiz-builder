@@ -23,6 +23,7 @@ router.post('/', async (req: Request, res: Response) => {
         create: body.questions.map((q) => ({
           text: q.text,
           type: q.type,
+          correctAnswer: q.correctAnswer ?? null,
           options: q.options?.length
             ? { create: q.options.map((o) => ({ label: o.label, isCorrect: o.isCorrect })) }
             : undefined,
