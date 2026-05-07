@@ -62,7 +62,7 @@ cd frontend
 npm install
 
 # Copy env file
-cp .env.example .env.local
+cp env.example .env.local
 
 # Start dev server (http://localhost:3000)
 npm run dev

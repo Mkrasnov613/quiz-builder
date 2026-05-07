@@ -44,7 +44,7 @@ export default function QuizzesPage() {
       {error && <p className="text-danger mb-4 text-sm">{error}</p>}
 
       {quizzes.length === 0 ? (
-        <div className="text-center py-16 text-text-muted">
+        <div className="bg-gradient-card border border-border-muted border-t-highlight text-center py-16 text-text-muted rounded-2xl">
           <p className="text-lg mb-2">No quizzes yet.</p>
           <Link href="/create" className="text-primary hover:underline text-sm">
             Create your first quiz
