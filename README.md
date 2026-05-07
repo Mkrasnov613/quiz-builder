@@ -81,7 +81,51 @@ npm run dev
 
 ---
 
+## Data Shape
+
+### Create Quiz — `POST /quizzes`
+
+```ts
+{
+  title: string
+  questions: {
+    text: string
+    type: "BOOLEAN" | "INPUT" | "CHECKBOX"
+
+    // BOOLEAN — correct answer is "true" or "false"
+    correctAnswer?: string
+
+    // INPUT — the expected text answer
+    correctAnswer?: string
+
+    // CHECKBOX — mark each option as correct or not
+    options?: { label: string; isCorrect: boolean }[]
+  }[]
+}
+```
+
+### Quiz Response — `GET /quizzes/:id`
+
+```ts
+{
+  id: number
+  title: string
+  createdAt: string
+  questions: {
+    id: number
+    text: string
+    type: "BOOLEAN" | "INPUT" | "CHECKBOX"
+    correctAnswer: string | null
+    options: { id: number; label: string; isCorrect: boolean }[]
+  }[]
+}
+```
+
+---
+
 ## Create a Sample Quiz
+
+The example below covers all three question types.
 
 ```bash
 curl -X POST http://localhost:3001/quizzes \
@@ -89,16 +133,24 @@ curl -X POST http://localhost:3001/quizzes \
   -d '{
     "title": "JavaScript Basics",
     "questions": [
-      { "type": "BOOLEAN", "text": "JavaScript is a compiled language." },
-      { "type": "INPUT",   "text": "What keyword declares a constant?" },
+      {
+        "type": "BOOLEAN",
+        "text": "JavaScript is a compiled language.",
+        "correctAnswer": "false"
+      },
+      {
+        "type": "INPUT",
+        "text": "What keyword declares a block-scoped constant?",
+        "correctAnswer": "const"
+      },
       {
         "type": "CHECKBOX",
-        "text": "Which are valid JS data types?",
+        "text": "Which of the following are valid JavaScript data types?",
         "options": [
-          { "label": "String",  "isCorrect": true },
-          { "label": "Number",  "isCorrect": true },
-          { "label": "Boolean", "isCorrect": true },
-          { "label": "Float64", "isCorrect": false }
+          { "label": "String",    "isCorrect": true  },
+          { "label": "Number",    "isCorrect": true  },
+          { "label": "Boolean",   "isCorrect": true  },
+          { "label": "Float64",   "isCorrect": false }
         ]
       }
     ]
